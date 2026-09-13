@@ -1,0 +1,6 @@
+{
+  "name": "Bulk SMS Dispatcher",
+  "description": "Local SIM bulk SMS dispatcher with CSV and Excel contact filtering, custom throttled delivery delay, and real-time carrier delivery receipt tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
