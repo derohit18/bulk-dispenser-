@@ -4,27 +4,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import com.example.ui.BulkSmsScreen
-import com.example.ui.BulkSmsViewModel
-import com.example.ui.BulkSmsViewModelFactory
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.example.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
-
-    private val viewModel: BulkSmsViewModel by viewModels {
-        val app = application as BulkSmsApp
-        BulkSmsViewModelFactory(app.repository)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                BulkSmsScreen(viewModel = viewModel)
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Install Tester App - No Dangerous Permissions")
+                }
             }
         }
     }
 }
-
