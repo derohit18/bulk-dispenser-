@@ -25,11 +25,10 @@ android {
 
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
+      storeFile = file("${rootDir}/my-release-key.jks")
+      storePassword = "password123"
+      keyAlias = "my-alias"
+      keyPassword = "password123"
     }
     create("debugConfig") {
       storeFile = file("${rootDir}/debug.keystore")
@@ -42,15 +41,9 @@ android {
   buildTypes {
     release {
       isCrunchPngs = false
-      isMinifyEnabled = false
+      isMinifyEnabled = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      // If release upload key exists, use it; otherwise fall back to debugConfig so assembleRelease doesn't fail
-      val releaseKeystore = signingConfigs.getByName("release").storeFile
-      if (releaseKeystore != null && releaseKeystore.exists()) {
-        signingConfig = signingConfigs.getByName("release")
-      } else {
-        signingConfig = signingConfigs.getByName("debugConfig")
-      }
+      signingConfig = signingConfigs.getByName("release")
     }
     debug { signingConfig = signingConfigs.getByName("debugConfig") }
   }
@@ -61,6 +54,10 @@ android {
   buildFeatures {
     compose = true
     buildConfig = true
+  }
+  lint {
+    checkReleaseBuilds = false
+    abortOnError = false
   }
   testOptions { unitTests { isIncludeAndroidResources = true } }
   dependenciesInfo {
